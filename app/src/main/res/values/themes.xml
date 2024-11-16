@@ -2,4 +2,9 @@
 <resources>
 
     <style name="Theme.AlllanguageNewsApp" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="CustomSearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
 </resources>

@@ -16,9 +16,30 @@
         android:theme="@style/Theme.AlllanguageNewsApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.topheadlines.TopHeadLineActivity"
+            android:name=".ui.mainactivity.language.TopLanguageSearchActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+        <activity
+            android:name=".ui.mainactivity.countries.CountryActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".ui.mainactivity.SearchActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".ui.mainactivity.topsources.TopSourceActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".ui.mainactivity.MainActivityNewsApp"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".ui.mainactivity.topheadlines.TopHeadLineActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true"

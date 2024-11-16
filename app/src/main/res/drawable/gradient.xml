@@ -1,0 +1,10 @@
+<!-- res/drawable/rounded_blue_button.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient xmlns:android="http://schemas.android.com/apk/res/android"
+        android:angle="45"
+    android:startColor="#FFB6C1"
+    android:endColor="#E0FFFF"
+    android:type="linear" />
+
+
+</shape>

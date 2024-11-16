@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">AlllanguageNewsApp</string>
+    <string name="app_name">MultiCountryNewsApp</string>
+    <string name="top_headlines">Top HeadLines</string>
+    <string name="news_sources">News Sources</string>
+    <string name="countries">Countries</string>
+    <string name="languages">Languages</string>
+    <string name="search">Search</string>
+    <string name="tesla_articles">Tesla (Articles)</string>
+    <string name="no_data_found">No Data Found</string>
 </resources>

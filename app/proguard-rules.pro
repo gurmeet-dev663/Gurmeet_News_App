@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class com.gurmeet.alllanguagenewsapp.data.** { *; }
+-keep class com.gurmeet.alllanguagenewsapp.di.** { *; }
+-keep class com.gurmeet.alllanguagenewsapp.ui.** { *; }
+-keep class com.gurmeet.alllanguagenewsapp.utils.** { *; }
+-keep class com.gurmeet.alllanguagenewsapp.ui.** { *; }
+-keep class com.gurmeet.alllanguagenewsapp.AllLanguageApplication { *; }
