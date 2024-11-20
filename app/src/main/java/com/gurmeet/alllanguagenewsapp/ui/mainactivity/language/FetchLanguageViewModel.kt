@@ -2,11 +2,9 @@ package com.gurmeet.alllanguagenewsapp.ui.mainactivity.language
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gurmeet.alllanguagenewsapp.data.model.model.language.News
+import com.gurmeet.alllanguagenewsapp.data.model.language.News
 import com.gurmeet.alllanguagenewsapp.data.repository.AllLanguageRepository
-import com.gurmeet.alllanguagenewsapp.data.repository.TopSourceRepository
 import com.gurmeet.alllanguagenewsapp.ui.base.UiState
-import com.gurmeet.alllanguagesapp.NewsSources
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch

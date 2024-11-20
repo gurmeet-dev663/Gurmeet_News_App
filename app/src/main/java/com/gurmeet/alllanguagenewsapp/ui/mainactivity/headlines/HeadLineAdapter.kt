@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gurmeet.alllanguagenewsapp.data.model.model.topheadlines.Article
+import com.gurmeet.alllanguagenewsapp.data.model.topheadlines.Article
 import com.gurmeet.alllanguagenewsapp.databinding.TopHeadlineItemLayoutBinding
 
 class TopHeadLineAdapter (private val articleList: ArrayList<Article>)

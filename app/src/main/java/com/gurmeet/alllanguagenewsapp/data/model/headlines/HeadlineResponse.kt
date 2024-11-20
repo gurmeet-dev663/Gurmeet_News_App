@@ -1,10 +1,10 @@
-package com.gurmeet.alllanguagenewsapp.data.model.model.topheadlines
+package com.gurmeet.alllanguagenewsapp.data.model.topheadlines
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 @Keep
-data class TopHeadLinesResponse(
+data class headLinesResponse(
     @Keep
     @SerializedName("status")
     val status: String = "",

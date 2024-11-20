@@ -1,12 +1,16 @@
 package com.gurmeet.alllanguagenewsapp.data.repository
 
+import android.util.Log
 import androidx.annotation.Keep
 import com.gurmeet.alllanguagenewsapp.data.api.NetworkService
-import com.gurmeet.alllanguagenewsapp.data.model.model.topheadlines.Article
+import com.gurmeet.alllanguagenewsapp.data.model.topheadlines.Article
 import com.gurmeet.alllanguagenewsapp.utils.AppConstant
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.retry
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,7 +23,17 @@ class TopHeadlineRepository @Inject constructor(private val networkService: Netw
             emit(networkService.getTopHeadlines(country))
         }.map {
             it.articles
+        }.retry(3) { e ->
+            // Retry condition
+            Log.e("dfsds1",e.message.toString())
+
+            delay(1000) // Optional delay before retry
+            e is RuntimeException
         }
+            .catch { e ->
+                // Handle failure after retries are exhausted
+                Log.e("dfsds",e.message.toString())
+            }
     }
     fun getNews(query: String): Flow<List<Article>> {
         return flow {

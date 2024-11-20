@@ -6,10 +6,8 @@ import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gurmeet.alllanguagenewsapp.data.model.model.language.News
-import com.gurmeet.alllanguagenewsapp.data.model.model.topheadlines.Article
+import com.gurmeet.alllanguagenewsapp.data.model.language.News
 import com.gurmeet.alllanguagenewsapp.databinding.TopHeadlineItemLayoutBinding
-import com.gurmeet.alllanguagenewsapp.ui.mainactivity.topheadlines.TopHeadLineAdapter
 
 class TopLanguageHeadlineAdapter (private val newsList: ArrayList<News>)
     : RecyclerView.Adapter<TopLanguageHeadlineAdapter.DataViewHolder>() {
@@ -30,6 +28,7 @@ class TopLanguageHeadlineAdapter (private val newsList: ArrayList<News>)
                 val customTabsIntent = builder.build()
                 customTabsIntent.launchUrl(it.context, Uri.parse(news.url))
             }
+
 
         }
     }

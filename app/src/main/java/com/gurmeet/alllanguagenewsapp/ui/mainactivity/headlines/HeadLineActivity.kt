@@ -7,16 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gurmeet.alllanguagenewsapp.AllLanguageApplication
+import com.gurmeet.alllanguagenewsapp.Application
 
 
-import com.gurmeet.alllanguagenewsapp.data.model.model.topheadlines.Article
+import com.gurmeet.alllanguagenewsapp.data.model.topheadlines.Article
 
 import com.gurmeet.alllanguagenewsapp.databinding.ActivityTopHeadlineBinding
 import com.gurmeet.alllanguagenewsapp.di.Component.DaggerActivityComponent
@@ -130,11 +129,15 @@ injectDependencies()
     private fun injectDependencies() {
 
      DaggerActivityComponent.builder()
-            .applicationComponent((application as AllLanguageApplication).applicationComponent)
+            .applicationComponent((application as Application).applicationComponent)
             .activityModule(ActivityModule(this)).build().inject(this)
 
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        networkViewModel.stopMonitoring()
+    }
 }
 

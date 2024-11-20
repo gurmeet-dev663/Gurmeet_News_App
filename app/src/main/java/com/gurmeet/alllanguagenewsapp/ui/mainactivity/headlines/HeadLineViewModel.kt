@@ -1,12 +1,9 @@
 package com.gurmeet.alllanguagenewsapp.ui.mainactivity.topheadlines
 
-import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gurmeet.alllanguagenewsapp.data.model.model.topheadlines.Article
+import com.gurmeet.alllanguagenewsapp.data.model.topheadlines.Article
 import com.gurmeet.alllanguagenewsapp.data.repository.TopHeadlineRepository
 import com.gurmeet.alllanguagenewsapp.ui.base.UiState
 import com.gurmeet.alllanguagenewsapp.utils.AppConstant.COUNTRY
@@ -32,9 +29,6 @@ class TopHeadLineViewModel (private val topHeadlineRepository: TopHeadlineReposi
 
     private val query = MutableStateFlow("")
 
-    init {
-        createNewsFlow()
-    }
 
     fun searchNews(searchQuery: String) {
         query.value = searchQuery
@@ -42,7 +36,7 @@ class TopHeadLineViewModel (private val topHeadlineRepository: TopHeadlineReposi
 
 
 
-    private fun createNewsFlow() {
+     fun createNewsFlow() {
         viewModelScope.launch {
             query.debounce(DEBOUNCE_TIMEOUT)
                 .filter {
