@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TopSourceRepository @Inject constructor(private val networkService: NetworkService){
+class NewsSourceRepository @Inject constructor(private val networkService: NetworkService){
 
     fun getTopSource(): Flow<List<NewsSources>>{
         return flow {

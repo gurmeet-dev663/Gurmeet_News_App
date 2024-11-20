@@ -1,24 +1,32 @@
 package com.gurmeet.alllanguagenewsapp.ui.mainactivity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.Observer
 
 import com.gurmeet.alllanguagenewsapp.R
 import com.gurmeet.alllanguagenewsapp.databinding.ActivityMainNewsAppBinding
 
 import com.gurmeet.alllanguagenewsapp.ui.base.BaseActivity
 import com.gurmeet.alllanguagenewsapp.ui.mainactivity.countries.CountryActivity
-import com.gurmeet.alllanguagenewsapp.ui.mainactivity.topheadlines.TopHeadLineActivity
-import com.gurmeet.alllanguagenewsapp.ui.mainactivity.topsources.TopSourceActivity
+import com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines.HeadLineActivity
+import com.gurmeet.alllanguagenewsapp.ui.mainactivity.newsources.NewsSourceActivity
 
 class MainActivityNewsApp : BaseActivity<ActivityMainNewsAppBinding,Nothing>(){
-
+var isInternetPresent=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        resetToastCounter()
+        networkViewModel.isConnected.observe(this, Observer { isConnected ->
+            if (isConnected) {
+                isInternetPresent=true
+            } else {
+                isInternetPresent=false
+                toastInternetNotAvailable(3)
+            }
+        })
         setupButtons()
     }
     override fun inflateBinding(inflater: LayoutInflater): ActivityMainNewsAppBinding {
@@ -32,32 +40,34 @@ class MainActivityNewsApp : BaseActivity<ActivityMainNewsAppBinding,Nothing>(){
 
 
     private fun setupButtons() {
-        val topHeadLines = binding.topHeadLines
-        val newsSources = binding.newsSources
-        val countries = binding.countries
-        val languages=binding.languages
-        val search=binding.search
-
         binding.topHeadLines.setOnClickListener { onButtonClick(binding.topHeadLines) }
         binding.newsSources.setOnClickListener { onButtonClick(binding.newsSources) }
         binding.countries.setOnClickListener { onButtonClick(binding.countries) }
         binding.languages.setOnClickListener { onButtonClick(binding.languages) }
         binding.search.setOnClickListener { onButtonClick(binding.search) }
         binding.tesla.setOnClickListener { onButtonClick(binding.tesla) }
+        // List of buttons
+        val buttons = listOf(binding.topHeadLines, binding.newsSources, binding.countries,binding.languages,binding.languages,binding.search,binding.tesla)
+        buttons.forEach { button ->
+            addScaleEffectToButton(button)
+
+        }
+
     }
+    // Function to apply scale effect on button press
+
 
     private fun onButtonClick(view: View) {
+        if(isInternetPresent){
         when (view.id) {
             R.id.topHeadLines -> {
-                val intent=Intent(this,TopHeadLineActivity::class.java)
-                startActivity(intent)
+                startActivity(HeadLineActivity.getStartIntent(this,""))
             }
             R.id.newsSources -> {
-                val intent=Intent(this,TopSourceActivity::class.java)
-                startActivity(intent)
+                startActivity(NewsSourceActivity.getStartIntent(this))
             }
             R.id.tesla->{
-                startActivity(TopHeadLineActivity.getStartIntent(this,"1"))
+                startActivity(HeadLineActivity.getStartIntent(this,"1"))
             }
             R.id.countries -> {
                 startActivity(CountryActivity.getStartIntent(this,1))
@@ -69,6 +79,8 @@ class MainActivityNewsApp : BaseActivity<ActivityMainNewsAppBinding,Nothing>(){
                startActivity(SearchActivity.getStartIntent(this))
             }
         }
-    }
+    }else{
+        toastInternetNotAvailable(3)
+        }
 
-}
+}}

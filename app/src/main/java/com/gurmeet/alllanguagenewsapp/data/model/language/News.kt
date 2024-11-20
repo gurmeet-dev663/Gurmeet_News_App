@@ -1,4 +1,4 @@
-package com.gurmeet.alllanguagenewsapp.data.model.model.language
+package com.gurmeet.alllanguagenewsapp.data.model.language
 
 import com.google.gson.annotations.SerializedName
 

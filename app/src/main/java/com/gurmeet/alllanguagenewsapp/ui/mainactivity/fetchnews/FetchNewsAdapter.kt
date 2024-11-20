@@ -1,4 +1,4 @@
-package com.gurmeet.alllanguagenewsapp.ui.mainactivity.language
+package com.gurmeet.alllanguagenewsapp.ui.mainactivity.fetchnews
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import com.bumptech.glide.Glide
 import com.gurmeet.alllanguagenewsapp.data.model.language.News
 import com.gurmeet.alllanguagenewsapp.databinding.TopHeadlineItemLayoutBinding
 
-class TopLanguageHeadlineAdapter (private val newsList: ArrayList<News>)
-    : RecyclerView.Adapter<TopLanguageHeadlineAdapter.DataViewHolder>() {
+class FetchNewsAdapter (private val newsList: ArrayList<News>)
+    : RecyclerView.Adapter<FetchNewsAdapter.DataViewHolder>() {
 
 
     class DataViewHolder(private val binding: TopHeadlineItemLayoutBinding) :

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 
 
-data class TopSourcesResponse (
+data class SourcesResponse (
 
   @SerializedName("status")
   var status  : String? = null,

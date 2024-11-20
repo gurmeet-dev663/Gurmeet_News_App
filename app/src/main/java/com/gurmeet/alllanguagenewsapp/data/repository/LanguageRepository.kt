@@ -8,8 +8,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class AllLanguageRepository @Inject  constructor( @BaseUrl2 private val networkService: NetworkService) {
+@Singleton
+class LanguageRepository @Inject  constructor(@BaseUrl2 private val networkService: NetworkService) {
 
     fun getAllLanguageRepo(language: String): Flow<List<News>> {
       return flow{

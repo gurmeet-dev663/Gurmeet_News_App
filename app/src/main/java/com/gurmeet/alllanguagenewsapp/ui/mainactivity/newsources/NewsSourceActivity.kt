@@ -1,6 +1,8 @@
-package com.gurmeet.alllanguagenewsapp.ui.mainactivity.topsources
+package com.gurmeet.alllanguagenewsapp.ui.mainactivity.newsources
 
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 
 import android.view.LayoutInflater
@@ -21,6 +23,7 @@ import com.gurmeet.alllanguagenewsapp.di.Component.DaggerActivityComponent
 import com.gurmeet.alllanguagenewsapp.di.module.ActivityModule
 import com.gurmeet.alllanguagenewsapp.ui.base.BaseActivity
 import com.gurmeet.alllanguagenewsapp.ui.base.UiState
+import com.gurmeet.alllanguagenewsapp.ui.mainactivity.SearchActivity
 import com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines.HeadLineActivity
 
 import com.gurmeet.alllanguagesapp.NewsSources
@@ -35,7 +38,11 @@ import javax.inject.Inject
     lateinit var adapter: NewsSourceAdapter
       var isInternetPresent=false
 
-
+     companion object {
+         fun getStartIntent(context: Context): Intent {
+             return Intent(context, NewsSourceActivity::class.java)
+         }
+     }
     override fun onCreate(savedInstanceState: Bundle?) {
         injectDependencies()
         super.onCreate(savedInstanceState)

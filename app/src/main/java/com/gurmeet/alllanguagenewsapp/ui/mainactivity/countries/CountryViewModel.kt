@@ -2,8 +2,8 @@ package com.gurmeet.alllanguagenewsapp.ui.mainactivity.countries
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gurmeet.alllanguagenewsapp.data.model.model.country.Country
-import com.gurmeet.alllanguagenewsapp.data.repository.SearchRepository
+import com.gurmeet.alllanguagenewsapp.data.model.country.Country
+import com.gurmeet.alllanguagenewsapp.data.repository.CountryRepository
 import com.gurmeet.alllanguagenewsapp.ui.base.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
-class CountryViewModel (private val countriesRepository: SearchRepository) : ViewModel() {
+class CountryViewModel (private val countriesRepository: CountryRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState<List<Country>>>(UiState.Loading)
 

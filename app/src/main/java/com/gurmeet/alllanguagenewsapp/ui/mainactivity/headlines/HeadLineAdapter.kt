@@ -1,4 +1,4 @@
-package com.gurmeet.alllanguagenewsapp.ui.mainactivity.topheadlines
+package com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gurmeet.alllanguagenewsapp.data.model.topheadlines.Article
+import com.gurmeet.alllanguagenewsapp.data.model.headlines.Article
 import com.gurmeet.alllanguagenewsapp.databinding.TopHeadlineItemLayoutBinding
 
-class TopHeadLineAdapter (private val articleList: ArrayList<Article>)
-    : RecyclerView.Adapter<TopHeadLineAdapter.DataViewHolder>() {
+class HeadLineAdapter (private val articleList: ArrayList<Article>)
+    : RecyclerView.Adapter<HeadLineAdapter.DataViewHolder>() {
 
 
     class DataViewHolder(private val binding: TopHeadlineItemLayoutBinding) :

@@ -1,21 +1,20 @@
 package com.gurmeet.alllanguagenewsapp.di.module
 
 import android.content.Context
-import com.gurmeet.alllanguagenewsapp.AllLanguageApplication
+import com.gurmeet.alllanguagenewsapp.Application
 import com.gurmeet.alllanguagenewsapp.data.ApplicationContext
 import com.gurmeet.alllanguagenewsapp.data.BaseUrl
 import com.gurmeet.alllanguagenewsapp.data.BaseUrl2
 import com.gurmeet.alllanguagenewsapp.data.api.NetworkService
 import dagger.Module
 import dagger.Provides
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 
 @Module
-class ApplicationModule(private val application: AllLanguageApplication) {
+class ApplicationModule(private val application: Application) {
 
     @ApplicationContext
     @Provides

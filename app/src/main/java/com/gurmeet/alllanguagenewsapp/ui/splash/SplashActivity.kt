@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.Looper
 import com.gurmeet.alllanguagenewsapp.R
 import com.gurmeet.alllanguagenewsapp.ui.mainactivity.MainActivityNewsApp
-import com.gurmeet.alllanguagenewsapp.ui.mainactivity.topheadlines.TopHeadLineActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

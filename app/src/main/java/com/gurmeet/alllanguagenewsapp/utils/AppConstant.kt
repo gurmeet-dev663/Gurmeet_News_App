@@ -1,6 +1,6 @@
 package com.gurmeet.alllanguagenewsapp.utils
 
-import com.gurmeet.alllanguagenewsapp.data.model.model.country.Country
+import com.gurmeet.alllanguagenewsapp.data.model.country.Country
 
 object AppConstant {
 const val API_KEY="ec89061f0a4f42c6bf958186f898718f"

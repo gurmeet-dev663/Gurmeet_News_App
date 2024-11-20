@@ -1,4 +1,4 @@
-package com.gurmeet.alllanguagenewsapp.data.model.model.country
+package com.gurmeet.alllanguagenewsapp.data.model.country
 
 data class Country(
     val id: String = "",

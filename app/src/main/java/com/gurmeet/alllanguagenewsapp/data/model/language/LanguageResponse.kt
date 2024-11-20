@@ -1,9 +1,9 @@
-package com.gurmeet.alllanguagenewsapp.data.model.model.language
+package com.gurmeet.alllanguagenewsapp.data.model.language
 
 import com.google.gson.annotations.SerializedName
 
 
-data class AllLanguageResponse(
+data class LanguageResponse(
     @SerializedName("status")
     var status: String? = null,
     @SerializedName("news")

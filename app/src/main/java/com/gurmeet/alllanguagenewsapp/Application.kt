@@ -5,7 +5,7 @@ import com.gurmeet.alllanguagenewsapp.di.Component.ApplicationComponent
 import com.gurmeet.alllanguagenewsapp.di.Component.DaggerApplicationComponent
 import com.gurmeet.alllanguagenewsapp.di.module.ApplicationModule
 
-class AllLanguageApplication : Application() {
+class Application : Application() {
     lateinit var applicationComponent :ApplicationComponent
     override fun onCreate() {
         super.onCreate()
@@ -21,4 +21,5 @@ class AllLanguageApplication : Application() {
             .build()
         applicationComponent.inject(this)
     }
+
 }

@@ -1,4 +1,4 @@
-package com.gurmeet.alllanguagenewsapp.ui.mainactivity.topsources
+package com.gurmeet.alllanguagenewsapp.ui.mainactivity.newsources
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -1,4 +1,4 @@
-package com.gurmeet.alllanguagenewsapp.ui.mainactivity.language
+package com.gurmeet.alllanguagenewsapp.ui.mainactivity.fetchnews
 
 import android.content.Context
 import android.content.Intent
@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gurmeet.alllanguagenewsapp.Application
 import com.gurmeet.alllanguagenewsapp.data.BaseUrl2
 import com.gurmeet.alllanguagenewsapp.data.model.language.News
-import com.gurmeet.alllanguagenewsapp.databinding.ActivityTopLanguageSearchBinding
+import com.gurmeet.alllanguagenewsapp.databinding.ActivityFetchLanguageBinding
+
+
 import com.gurmeet.alllanguagenewsapp.di.Component.DaggerActivityComponent
 import com.gurmeet.alllanguagenewsapp.di.module.ActivityModule
 import com.gurmeet.alllanguagenewsapp.ui.base.BaseActivity
@@ -21,13 +23,13 @@ import com.gurmeet.alllanguagenewsapp.ui.base.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TopLanguageSearchActivity : BaseActivity<ActivityTopLanguageSearchBinding,TopLanguageViewModel>() {
+class FetchNewsActivity : BaseActivity<ActivityFetchLanguageBinding,FetchNewsViewModel>() {
 
     companion object {
         const val id = "id"
        const val  comingFromm="comingFrom"
         fun getStartIntent(context: Context, idGet: String,comingFrom:Int): Intent {
-            return Intent(context, TopLanguageSearchActivity::class.java)
+            return Intent(context, FetchNewsActivity::class.java)
                 .apply {
                     putExtra(id, idGet)
                     putExtra(comingFromm,comingFrom)
@@ -35,10 +37,10 @@ class TopLanguageSearchActivity : BaseActivity<ActivityTopLanguageSearchBinding,
                 } }
     }
     @Inject
-    lateinit var topLanguageViewModel: TopLanguageViewModel
+    lateinit var topLanguageViewModel: FetchNewsViewModel
 
     @Inject
-    lateinit var topLanguageHeadlineAdapter: TopLanguageHeadlineAdapter
+    lateinit var topLanguageHeadlineAdapter: FetchNewsAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +50,8 @@ class TopLanguageSearchActivity : BaseActivity<ActivityTopLanguageSearchBinding,
         getIntentAndFetchData()
     }
     private fun getIntentAndFetchData() {
-        val id = intent.getStringExtra(TopLanguageSearchActivity.id)
-        val comingFrom=intent.getIntExtra(TopLanguageSearchActivity.comingFromm,0)
+        val id = intent.getStringExtra(FetchNewsActivity.id)
+        val comingFrom=intent.getIntExtra(FetchNewsActivity.comingFromm,0)
 
         if (!id.isNullOrEmpty()) {
             if(comingFrom==1){
@@ -63,12 +65,12 @@ class TopLanguageSearchActivity : BaseActivity<ActivityTopLanguageSearchBinding,
         setupUI()
         setupObserver()
     }
-    override fun inflateBinding(inflater: LayoutInflater): ActivityTopLanguageSearchBinding {
-       return ActivityTopLanguageSearchBinding.inflate(inflater)
+    override fun inflateBinding(inflater: LayoutInflater): ActivityFetchLanguageBinding {
+       return ActivityFetchLanguageBinding.inflate(inflater)
     }
 
-    override fun getViewModelClass(): Class<TopLanguageViewModel> {
-        return TopLanguageViewModel::class.java
+    override fun getViewModelClass(): Class<FetchNewsViewModel> {
+        return FetchNewsViewModel::class.java
     }
     private fun setupUI() {
         @BaseUrl2
@@ -96,7 +98,7 @@ class TopLanguageSearchActivity : BaseActivity<ActivityTopLanguageSearchBinding,
                         is UiState.Error -> {
                             //Handle Error
                             binding.progressBar.visibility = View.GONE
-                            Toast.makeText(this@TopLanguageSearchActivity, it.message, Toast.LENGTH_LONG)
+                            Toast.makeText(this@FetchNewsActivity, it.message, Toast.LENGTH_LONG)
                                 .show()
                         }
                     }

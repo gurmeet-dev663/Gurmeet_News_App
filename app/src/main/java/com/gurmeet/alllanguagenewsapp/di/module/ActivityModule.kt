@@ -4,19 +4,19 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.gurmeet.alllanguagenewsapp.data.ActivityContext
-import com.gurmeet.alllanguagenewsapp.data.repository.AllLanguageRepository
-import com.gurmeet.alllanguagenewsapp.data.repository.SearchRepository
+import com.gurmeet.alllanguagenewsapp.data.repository.LanguageRepository
+import com.gurmeet.alllanguagenewsapp.data.repository.CountryRepository
 import com.gurmeet.alllanguagenewsapp.data.repository.TopHeadlineRepository
-import com.gurmeet.alllanguagenewsapp.data.repository.TopSourceRepository
+import com.gurmeet.alllanguagenewsapp.data.repository.NewsSourceRepository
 import com.gurmeet.alllanguagenewsapp.ui.base.ViewModelProviderFactory
 import com.gurmeet.alllanguagenewsapp.ui.mainactivity.countries.CountryAdapter
 import com.gurmeet.alllanguagenewsapp.ui.mainactivity.countries.CountryViewModel
-import com.gurmeet.alllanguagenewsapp.ui.mainactivity.language.TopLanguageHeadlineAdapter
-import com.gurmeet.alllanguagenewsapp.ui.mainactivity.language.TopLanguageViewModel
-import com.gurmeet.alllanguagenewsapp.ui.mainactivity.topheadlines.TopHeadLineAdapter
-import com.gurmeet.alllanguagenewsapp.ui.mainactivity.topheadlines.TopHeadLineViewModel
-import com.gurmeet.alllanguagenewsapp.ui.mainactivity.topsources.TopSourceAdapter
-import com.gurmeet.alllanguagenewsapp.ui.mainactivity.topsources.TopSourcesViewModel
+import com.gurmeet.alllanguagenewsapp.ui.mainactivity.fetchnews.FetchNewsAdapter
+import com.gurmeet.alllanguagenewsapp.ui.mainactivity.fetchnews.FetchNewsViewModel
+import com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines.HeadLineAdapter
+import com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines.HeadLineViewModel
+import com.gurmeet.alllanguagenewsapp.ui.mainactivity.newsources.NewsSourceAdapter
+import com.gurmeet.alllanguagenewsapp.ui.mainactivity.newsources.NewsSourcesViewModel
 
 import dagger.Module
 import dagger.Provides
@@ -29,46 +29,46 @@ class ActivityModule(private val activity: AppCompatActivity)  {
         return activity
     }
     @Provides
-    fun provideNewsListViewModel(topHeadlineRepository: TopHeadlineRepository): TopHeadLineViewModel {
+    fun provideNewsListViewModel(topHeadlineRepository: TopHeadlineRepository): HeadLineViewModel {
         return ViewModelProvider(activity,
-            ViewModelProviderFactory(TopHeadLineViewModel::class) {
-                TopHeadLineViewModel(topHeadlineRepository)
-            })[TopHeadLineViewModel::class.java]
+            ViewModelProviderFactory(HeadLineViewModel::class) {
+                HeadLineViewModel(topHeadlineRepository)
+            })[HeadLineViewModel::class.java]
     }
     @Provides
-    fun provideTopSourceViewModel(topSourceRepository: TopSourceRepository): TopSourcesViewModel {
+    fun provideTopSourceViewModel(topSourceRepository: NewsSourceRepository): NewsSourcesViewModel {
         return ViewModelProvider(activity,
-            ViewModelProviderFactory(TopSourcesViewModel::class) {
-                TopSourcesViewModel(topSourceRepository)
-            })[TopSourcesViewModel::class.java]
+            ViewModelProviderFactory(NewsSourcesViewModel::class) {
+                NewsSourcesViewModel(topSourceRepository)
+            })[NewsSourcesViewModel::class.java]
     }
     @Provides
-    fun provideCountryViewModel(searchRepository: SearchRepository): CountryViewModel {
+    fun provideCountryViewModel(searchRepository: CountryRepository): CountryViewModel {
         return ViewModelProvider(activity,
             ViewModelProviderFactory(CountryViewModel::class) {
                 CountryViewModel(searchRepository)
             })[CountryViewModel::class.java]
     }
     @Provides
-    fun provideAllLanugage(allLanguageRepository: AllLanguageRepository): TopLanguageViewModel {
+    fun provideAllLanugage(allLanguageRepository: LanguageRepository): FetchNewsViewModel {
         return ViewModelProvider(activity,
-            ViewModelProviderFactory(TopLanguageViewModel::class) {
-                TopLanguageViewModel(allLanguageRepository)
-            })[TopLanguageViewModel::class.java]
+            ViewModelProviderFactory(FetchNewsViewModel::class) {
+                FetchNewsViewModel(allLanguageRepository)
+            })[FetchNewsViewModel::class.java]
     }
 
 
 
 
     @Provides
-    fun provideTopHeadlineAdapter() = TopHeadLineAdapter(ArrayList())
+    fun provideTopHeadlineAdapter() = HeadLineAdapter(ArrayList())
   @Provides
-    fun provideTopSourceAdapter()=TopSourceAdapter(ArrayList())
+    fun provideTopSourceAdapter()=NewsSourceAdapter(ArrayList())
 
     @Provides
     fun provideCountryAdapter()=CountryAdapter(ArrayList())
 
     @Provides
-    fun allLanguageAdapter()=TopLanguageHeadlineAdapter(ArrayList())
+    fun allLanguageAdapter()=FetchNewsAdapter(ArrayList())
 
 }

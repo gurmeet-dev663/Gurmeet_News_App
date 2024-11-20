@@ -1,9 +1,9 @@
-package com.gurmeet.alllanguagenewsapp.ui.mainactivity.topheadlines
+package com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gurmeet.alllanguagenewsapp.data.model.topheadlines.Article
+import com.gurmeet.alllanguagenewsapp.data.model.headlines.Article
 import com.gurmeet.alllanguagenewsapp.data.repository.TopHeadlineRepository
 import com.gurmeet.alllanguagenewsapp.ui.base.UiState
 import com.gurmeet.alllanguagenewsapp.utils.AppConstant.COUNTRY
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
-class TopHeadLineViewModel (private val topHeadlineRepository: TopHeadlineRepository):ViewModel() {
+class HeadLineViewModel (private val topHeadlineRepository: TopHeadlineRepository):ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState<List<Article>>>(UiState.Loading)
 

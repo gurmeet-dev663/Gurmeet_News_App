@@ -1,4 +1,4 @@
-package com.gurmeet.alllanguagenewsapp.ui.mainactivity.topheadlines
+package com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines
 
 import android.content.Context
 import android.content.Intent
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gurmeet.alllanguagenewsapp.Application
 
 
-import com.gurmeet.alllanguagenewsapp.data.model.topheadlines.Article
+import com.gurmeet.alllanguagenewsapp.data.model.headlines.Article
 
 import com.gurmeet.alllanguagenewsapp.databinding.ActivityTopHeadlineBinding
 import com.gurmeet.alllanguagenewsapp.di.Component.DaggerActivityComponent
@@ -30,21 +30,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class TopHeadLineActivity : BaseActivity<ActivityTopHeadlineBinding,TopHeadLineViewModel>() {
+class HeadLineActivity : BaseActivity<ActivityTopHeadlineBinding,HeadLineViewModel>() {
     companion object {
         const val id = "id"
         fun getStartIntent(context: Context, idGet: String): Intent {
-            return Intent(context, TopHeadLineActivity::class.java)
+            return Intent(context, HeadLineActivity::class.java)
                 .apply {
                     putExtra(id, idGet)
                 } }
     }
 
     @Inject
-    lateinit var newsListViewModel: TopHeadLineViewModel
+    lateinit var newsListViewModel: HeadLineViewModel
 
     @Inject
-    lateinit var adapter: TopHeadLineAdapter
+    lateinit var adapter: HeadLineAdapter
 
 
 
@@ -58,8 +58,8 @@ injectDependencies()
         return ActivityTopHeadlineBinding.inflate(inflater)
     }
 
-    override fun getViewModelClass(): Class<TopHeadLineViewModel> {
-      return TopHeadLineViewModel::class.java
+    override fun getViewModelClass(): Class<HeadLineViewModel> {
+      return HeadLineViewModel::class.java
     }
 
 
@@ -111,7 +111,7 @@ injectDependencies()
                         is UiState.Error -> {
                             //Handle Error
                             binding.progressBar.visibility = View.GONE
-                            Toast.makeText(this@TopHeadLineActivity, it.message, Toast.LENGTH_LONG)
+                            Toast.makeText(this@HeadLineActivity, it.message, Toast.LENGTH_LONG)
                                 .show()
                         }
                     }
