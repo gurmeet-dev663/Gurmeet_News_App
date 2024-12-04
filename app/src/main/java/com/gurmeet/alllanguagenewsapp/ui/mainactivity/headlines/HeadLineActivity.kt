@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.gurmeet.alllanguagenewsapp.Application
 
 
@@ -73,6 +74,7 @@ injectDependencies()
             }
         }
         else {
+           // newsListViewModel.fetchNews()
             newsListViewModel.fetchNews()
         }
 
@@ -83,13 +85,26 @@ injectDependencies()
     private fun setupUI() {
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                recyclerView.context,
-                (recyclerView.layoutManager as LinearLayoutManager).orientation
-            )
-        )
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val totalItemCount = layoutManager.itemCount
+                val visibleItemCount = layoutManager.childCount
+                val pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
+
+                if (!newsListViewModel.isLoading.value && visibleItemCount + pastVisibleItems >= totalItemCount) {
+                    // Load next page when the end of the list is reached
+                    binding.progressBar.visibility = View.VISIBLE
+                   newsListViewModel.loadNextPage()
+                }
+            }
+        })
         recyclerView.adapter = adapter
+
+
     }
 
     private fun setupObserver() {

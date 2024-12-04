@@ -3,9 +3,7 @@ package com.gurmeet.alllanguagenewsapp.ui.mainactivity.newsources
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
-
 import androidx.recyclerview.widget.RecyclerView
-
 import com.gurmeet.alllanguagenewsapp.databinding.TopSourceItemLayoutBinding
 import com.gurmeet.alllanguagenewsapp.utils.ItemClickListener
 import com.gurmeet.alllanguagesapp.NewsSources
@@ -61,9 +59,6 @@ class NewsSourceAdapter(private val sourceList: ArrayList<NewsSources>)
 
     fun addData(list: List<NewsSources>) {
         sourceList.addAll(list)
-    }
-
-
-}
+    } }
 
 

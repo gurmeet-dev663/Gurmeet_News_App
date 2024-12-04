@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gurmeet.alllanguagenewsapp.data.model.headlines.Article
 import com.gurmeet.alllanguagenewsapp.databinding.TopHeadlineItemLayoutBinding
+import com.gurmeet.alllanguagenewsapp.utils.AppUtils
+import com.gurmeet.alllanguagenewsapp.utils.loadImage
 
 class HeadLineAdapter (private val articleList: ArrayList<Article>)
     : RecyclerView.Adapter<HeadLineAdapter.DataViewHolder>() {
@@ -20,10 +22,14 @@ class HeadLineAdapter (private val articleList: ArrayList<Article>)
                 binding.textViewTitle.text = article.title
                 binding.textViewDescription.text = article.description
                 binding.textViewSource.text = article.source.name
-                Glide.with(binding.imageViewBanner.context)
+               /* Glide.with(binding.imageViewBanner.context)
                     .load(article.imageUrl)
-                    .into(binding.imageViewBanner)
-                itemView.setOnClickListener {
+                    .into(binding.imageViewBanner)*/
+            if(!article.imageUrl.isNullOrEmpty()){
+                binding.imageViewBanner.loadImage(article.imageUrl)
+            }
+
+            itemView.setOnClickListener {
                     val builder = CustomTabsIntent.Builder()
                     val customTabsIntent = builder.build()
                     customTabsIntent.launchUrl(it.context, Uri.parse(article.url))

@@ -13,5 +13,8 @@ data class HeadlineResponse(
     val totalResults: Int = 0,
     @Keep
     @SerializedName("articles")
-    val articles: List<Article> = ArrayList()
+    val articles: List<Article> = ArrayList(),
+
+    val currentPage: Int,
+    val totalPages: Int
 )

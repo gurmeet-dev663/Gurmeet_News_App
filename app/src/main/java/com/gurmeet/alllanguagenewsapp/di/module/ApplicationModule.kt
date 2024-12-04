@@ -8,6 +8,8 @@ import com.gurmeet.alllanguagenewsapp.data.BaseUrl2
 import com.gurmeet.alllanguagenewsapp.data.api.NetworkService
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -36,16 +38,33 @@ class ApplicationModule(private val application: Application) {
     @Singleton
     fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
+    @Provides
+    @Singleton
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY  // Logs request and response bodies
+        return loggingInterceptor
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)  // Add the logging interceptor to OkHttpClient
+            .build()
+    }
 
 
    @Singleton
     @Provides
    fun provideNetworkService(
         @BaseUrl baseUrl: String,
-        gsonConverterFactory: GsonConverterFactory
+        gsonConverterFactory: GsonConverterFactory,
+        okHttpClient: OkHttpClient
     ): NetworkService {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
+            .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
             .create(NetworkService::class.java)

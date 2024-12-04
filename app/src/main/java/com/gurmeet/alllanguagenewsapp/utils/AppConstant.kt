@@ -3,7 +3,7 @@ package com.gurmeet.alllanguagenewsapp.utils
 import com.gurmeet.alllanguagenewsapp.data.model.country.Country
 
 object AppConstant {
-const val API_KEY="ec89061f0a4f42c6bf958186f898718f"
+const val API_KEY="8882f5bb763d475ca244d20be94dce36"
     const val API_KEY_ALL_LANGUAGE="C2Bqk3pVqDhqY1y4PR0i3_Lh4KUApQ30-R8p48oO2DPVx453"
 const val COUNTRY="us"
 const val TESLA="tesla"

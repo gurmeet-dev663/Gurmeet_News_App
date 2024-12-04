@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gurmeet.alllanguagenewsapp.data.model.language.News
 import com.gurmeet.alllanguagenewsapp.databinding.TopHeadlineItemLayoutBinding
+import com.gurmeet.alllanguagenewsapp.utils.loadImage
 
 class FetchNewsAdapter (private val newsList: ArrayList<News>)
     : RecyclerView.Adapter<FetchNewsAdapter.DataViewHolder>() {
@@ -20,9 +21,11 @@ class FetchNewsAdapter (private val newsList: ArrayList<News>)
             binding.textViewTitle.text = news.title
             binding.textViewDescription.text = news.description
             binding.textViewSource.text = news.author
-            Glide.with(binding.imageViewBanner.context)
+           /* Glide.with(binding.imageViewBanner.context)
                 .load(news.image)
-                .into(binding.imageViewBanner)
+                .into(binding.imageViewBanner)*/
+
+            news.image?.let { binding.imageViewBanner.loadImage(it) }
             itemView.setOnClickListener {
                 val builder = CustomTabsIntent.Builder()
                 val customTabsIntent = builder.build()

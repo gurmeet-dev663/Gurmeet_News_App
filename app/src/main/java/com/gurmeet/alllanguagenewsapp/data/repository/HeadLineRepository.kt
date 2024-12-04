@@ -17,22 +17,21 @@ import javax.inject.Singleton
 @Singleton
 class TopHeadlineRepository @Inject constructor(private val networkService: NetworkService) {
 
-    fun getTopHeadlines(country: String): Flow<List<Article>> {
+    fun getTopHeadlines(country: String,page: Int, pageSize: Int): Flow<List<Article>> {
         return flow {
-            emit(networkService.getTopHeadlines(country))
+            emit(networkService.getTopHeadlines(country,page,pageSize))
         }.map {
             it.articles
-        }.retry(3) { e ->
+        }/*retry(3) { e ->
             // Retry condition
-
-
-            delay(1000) // Optional delay before retry
+            // delay(1000) // Optional delay before retry
             e is RuntimeException
         }
             .catch { e ->
                 // Handle failure after retries are exhausted
+                emit(emptyList())
 
-            }
+            }*/
     }
     fun getNews(query: String): Flow<List<Article>> {
         return flow {

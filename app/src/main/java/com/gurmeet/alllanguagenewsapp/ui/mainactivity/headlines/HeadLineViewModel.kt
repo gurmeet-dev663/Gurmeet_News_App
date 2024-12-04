@@ -1,5 +1,6 @@
 package com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,9 +28,16 @@ class HeadLineViewModel (private val topHeadlineRepository: TopHeadlineRepositor
     val uiState: StateFlow<UiState<List<Article>>> = _uiState
     private val _selectedItem = MutableLiveData<String>()
 
+    private val _currentPage = MutableStateFlow(1)
+    val currentPage: StateFlow<Int> = _currentPage
+
+    private val _totalPages = MutableStateFlow(1)
+    val totalPages: StateFlow<Int> = _totalPages
+
     private val query = MutableStateFlow("")
 
-
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
     fun searchNews(searchQuery: String) {
         query.value = searchQuery
     }
@@ -73,15 +81,36 @@ class HeadLineViewModel (private val topHeadlineRepository: TopHeadlineRepositor
 
 
 
+    fun loadNextPage() {
+        _isLoading.value = true
+        val currentPage = _currentPage.value
+        if (currentPage < _totalPages.value) {
+            _currentPage.value = currentPage + 1
+            fetchNews()
+        }
+    }
 
+    // Call this function to load the previous page
+    fun loadPreviousPage() {
+        val currentPage = _currentPage.value
+        if (currentPage > 1) {
+            _currentPage.value = currentPage - 1
+            fetchNews()
+        }
+    }
 
      fun fetchNews() {
+         val page = _currentPage.value ?: 1
+         val pageSize = 20  // Or a variable depending on your pagination needs
         viewModelScope.launch {
-            topHeadlineRepository.getTopHeadlines(COUNTRY)
+            topHeadlineRepository.getTopHeadlines(COUNTRY,_currentPage.value, 5)
                 .catch { e ->
-                    _uiState.value = UiState.Error(e.toString())
+                    _uiState.value = UiState.Error(e.message.toString())
                 }.collect {
                     _uiState.value = UiState.Success(it)
+                    _totalPages.value = 37
+                    _isLoading.value = false
+
                 }
         }
     }

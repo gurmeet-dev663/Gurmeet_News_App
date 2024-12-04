@@ -90,6 +90,7 @@ return CountryViewModel::class.java
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         recyclerView.adapter = adapter
+        recyclerView.setItemViewCacheSize(20)
         adapter.itemClickListener = {
             if(isInternetPresent){
                 startActivity(FetchNewsActivity.getStartIntent(this, it.id.toString(),id))
