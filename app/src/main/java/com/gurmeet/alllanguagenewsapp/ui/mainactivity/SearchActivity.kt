@@ -136,7 +136,7 @@ private fun setupObserver() {
     }
 
     private fun renderList(articleList: List<Article>) {
-        adapter.updateData(articleList)
+     //   adapter.updateData(articleList)
         adapter.notifyDataSetChanged()
     }
 

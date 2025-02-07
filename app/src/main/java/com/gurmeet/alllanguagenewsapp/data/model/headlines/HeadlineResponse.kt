@@ -15,6 +15,7 @@ data class HeadlineResponse(
     @SerializedName("articles")
     val articles: List<Article> = ArrayList(),
 
-    val currentPage: Int,
-    val totalPages: Int
+    val total: Int,
+    val per_page: Int,
+    val page: Int
 )

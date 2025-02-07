@@ -10,16 +10,15 @@ import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.gurmeet.alllanguagenewsapp.Application
 
 
-import com.gurmeet.alllanguagenewsapp.data.model.headlines.Article
-
 import com.gurmeet.alllanguagenewsapp.databinding.ActivityTopHeadlineBinding
 import com.gurmeet.alllanguagenewsapp.di.Component.DaggerActivityComponent
+
 import com.gurmeet.alllanguagenewsapp.di.module.ActivityModule
 
 
@@ -75,39 +74,39 @@ injectDependencies()
         }
         else {
            // newsListViewModel.fetchNews()
-            newsListViewModel.fetchNews()
-        }
+            newsListViewModel.fetchPagedData("HEADLINES","us")
+
+            // ✅ Collect PagingData and submit to adapter
+
+
+
+            }
 
         setupUI()
-        setupObserver()
+        setupObserver2()
     }
 
     private fun setupUI() {
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val totalItemCount = layoutManager.itemCount
-                val visibleItemCount = layoutManager.childCount
-                val pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
-
-                if (!newsListViewModel.isLoading.value && visibleItemCount + pastVisibleItems >= totalItemCount) {
-                    // Load next page when the end of the list is reached
-                    binding.progressBar.visibility = View.VISIBLE
-                   newsListViewModel.loadNextPage()
-                }
-            }
-        })
+        recyclerView.setHasFixedSize(true) // ✅ Prevents unnecessary relayouts
+        recyclerView.setItemViewCacheSize(20) // ✅ Ensures enough items are cached
         recyclerView.adapter = adapter
+
+        adapter.addLoadStateListener { loadState ->
+            // Show progress bar when data is loading
+            binding.progressBar.visibility =
+                if (loadState.refresh is LoadState.Loading) View.VISIBLE else View.GONE
+
+            // Show RecyclerView only when data is available
+            binding.recyclerView.visibility =
+                if (loadState.refresh is LoadState.NotLoading) View.VISIBLE else View.GONE
+        }
 
 
     }
 
-    private fun setupObserver() {
+  /*  private fun setupObserver() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 newsListViewModel.uiState.collect {
@@ -134,25 +133,61 @@ injectDependencies()
 
             }
         }
-    }
+    }*/
 
-    private fun renderList(articleList: List<Article>) {
-        adapter.addData(articleList)
+ /*   private fun renderList(articleList: List<Article>) {
+     //   adapter.addData(articleList)
         adapter.notifyDataSetChanged()
     }
-
+*/
     private fun injectDependencies() {
 
      DaggerActivityComponent.builder()
             .applicationComponent((application as Application).applicationComponent)
             .activityModule(ActivityModule(this)).build().inject(this)
-
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
         networkViewModel.stopMonitoring()
     }
+
+
+
+
+
+    private fun setupObserver2() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                newsListViewModel.uiState2.collect { uiState ->
+                    when (uiState) {
+                        is UiState.Success -> {
+                            binding.progressBar.visibility = View.GONE
+                            renderList(uiState.data) // Submit PagingData to adapter
+                            binding.recyclerView.visibility = View.VISIBLE
+                        }
+
+                        is UiState.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                            binding.recyclerView.visibility = View.GONE
+                        }
+
+                        is UiState.Error -> {
+                            binding.progressBar.visibility = View.GONE
+                            Toast.makeText(this@HeadLineActivity, uiState.message, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun renderList(pagingData: PagingData<Any>) {
+        // Submit PagingData to the adapter
+        adapter.submitData(lifecycle, pagingData)
+    }
+
+
+
 }
 

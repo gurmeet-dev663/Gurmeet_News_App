@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import com.gurmeet.alllanguagenewsapp.data.model.headlines.Article
 import com.gurmeet.alllanguagenewsapp.data.repository.TopHeadlineRepository
 import com.gurmeet.alllanguagenewsapp.ui.base.UiState
@@ -11,6 +12,7 @@ import com.gurmeet.alllanguagenewsapp.utils.AppConstant.COUNTRY
 import com.gurmeet.alllanguagenewsapp.utils.AppConstant.DEBOUNCE_TIMEOUT
 import com.gurmeet.alllanguagenewsapp.utils.AppConstant.MIN_SEARCH_CHAR
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -21,18 +23,25 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
+import androidx.paging.cachedIn
+import kotlinx.coroutines.flow.onStart
+
+
 class HeadLineViewModel (private val topHeadlineRepository: TopHeadlineRepository):ViewModel() {
+
+
+    // UI State flow for managing loading, success, and error states
+    private val _uiState2 = MutableStateFlow<UiState<PagingData<Any>>>(UiState.Loading)
+    val uiState2: StateFlow<UiState<PagingData<Any>>> = _uiState2
+
+
 
     private val _uiState = MutableStateFlow<UiState<List<Article>>>(UiState.Loading)
 
     val uiState: StateFlow<UiState<List<Article>>> = _uiState
     private val _selectedItem = MutableLiveData<String>()
 
-    private val _currentPage = MutableStateFlow(1)
-    val currentPage: StateFlow<Int> = _currentPage
 
-    private val _totalPages = MutableStateFlow(1)
-    val totalPages: StateFlow<Int> = _totalPages
 
     private val query = MutableStateFlow("")
 
@@ -68,52 +77,44 @@ class HeadLineViewModel (private val topHeadlineRepository: TopHeadlineRepositor
                 .collect {
                     // handle response and empty response properly
                     _uiState.value = UiState.Success(it)
-                }
-        }
-    }
+                }}}
 
-
-
-
-
-
-
-
-
-
-    fun loadNextPage() {
-        _isLoading.value = true
-        val currentPage = _currentPage.value
-        if (currentPage < _totalPages.value) {
-            _currentPage.value = currentPage + 1
-            fetchNews()
-        }
-    }
-
-    // Call this function to load the previous page
-    fun loadPreviousPage() {
-        val currentPage = _currentPage.value
-        if (currentPage > 1) {
-            _currentPage.value = currentPage - 1
-            fetchNews()
-        }
-    }
-
-     fun fetchNews() {
-         val page = _currentPage.value ?: 1
-         val pageSize = 20  // Or a variable depending on your pagination needs
+   /* public fun fetchNews() {
         viewModelScope.launch {
-            topHeadlineRepository.getTopHeadlines(COUNTRY,_currentPage.value, 5)
-                .catch { e ->
-                    _uiState.value = UiState.Error(e.message.toString())
-                }.collect {
-                    _uiState.value = UiState.Success(it)
-                    _totalPages.value = 37
-                    _isLoading.value = false
+            topHeadlineRepository.getTopHeadlines(COUNTRY)
+                .cachedIn(viewModelScope) // Cache data in viewModelScope
+                .onStart { _uiState2.value = UiState.Loading } // Show loading state
+                .catch { e -> _uiState2.value = UiState.Error(e.message ?: "Unknown error") } // Handle errors
+                .collect { pagingData ->
+                    _uiState2.value = UiState.Success(pagingData) // Show success with data
+                }
+        }
+    }*/
 
+
+    fun fetchPagedData(
+        screenType: String,
+        country: String?,
+        additionalParam: String? = null
+    ) {
+        viewModelScope.launch {
+            topHeadlineRepository.getPagedData(screenType, country, additionalParam)
+                .cachedIn(viewModelScope) // Cache data in viewModelScope
+                .onStart { _uiState2.value = UiState.Loading } // Show loading state
+                .catch { e -> _uiState2.value = UiState.Error(e.message ?: "Unknown error") } // Handle errors
+                .collect { pagingData ->
+                    _uiState2.value = UiState.Success(pagingData) // Show success with data
                 }
         }
     }
+
+
+
+
+
+
+
+
 
      fun fetchNewsDetail( id:String) {
         viewModelScope.launch {

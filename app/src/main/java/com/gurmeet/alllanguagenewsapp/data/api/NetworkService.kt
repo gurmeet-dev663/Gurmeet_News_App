@@ -18,8 +18,9 @@ interface NetworkService {
     suspend fun getNews(@Query("q") query: String): HeadlineResponse
     @Headers("X-Api-Key: $API_KEY")
     @GET("top-headlines")
-    suspend fun getTopHeadlines(@Query("country") country: String, @Query("page") page: Int,
-                                @Query("pageSize") pageSize: Int): HeadlineResponse
+    suspend fun getTopHeadlines(
+        @Query("country") country: String, @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int): HeadlineResponse
 
     @GET("top-headlines/sources")
     suspend fun getTopHeadlinesSources(@Query("apiKey") apiKey: String): SourcesResponse
