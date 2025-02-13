@@ -26,9 +26,12 @@ interface NetworkService {
     suspend fun getTopHeadlinesSources(@Query("apiKey") apiKey: String): SourcesResponse
 
     @GET("top-headlines")
-    suspend fun getTopHeadlinesDetails(@Query("sources")sourceDetails:String,@Query("apiKey") apiKey: String): HeadlineResponse
+    suspend fun getTopHeadlinesDetails(@Query("sources")sourceDetails:String,@Query("apiKey") apiKey: String,@Query("page") page: Int,
+                                       @Query("pageSize") pageSize: Int): HeadlineResponse
     @GET("everything")
-    suspend fun getTeslaArticles(@Query("q")q:String,@Query("sortBy")sorted:String,@Query("apiKey") apiKey: String): HeadlineResponse
+    suspend fun getTeslaArticles(@Query("q")q:String,@Query("sortBy")sorted:String,@Query("apiKey") apiKey: String,
+                                 @Query("page") page: Int,
+                                 @Query("pageSize") pageSize: Int): HeadlineResponse
 
 
     @GET("latest-news")

@@ -20,6 +20,7 @@ import com.gurmeet.alllanguagenewsapp.di.Component.DaggerActivityComponent
 import com.gurmeet.alllanguagenewsapp.di.module.ActivityModule
 import com.gurmeet.alllanguagenewsapp.ui.base.BaseActivity
 import com.gurmeet.alllanguagenewsapp.ui.base.UiState
+import com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines.HeadLineAdaperWithoutPaging3
 import com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines.HeadLineAdapter
 import com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines.HeadLineViewModel
 import kotlinx.coroutines.launch
@@ -30,7 +31,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding,HeadLineViewModel>() {
     lateinit var searchViewModel: HeadLineViewModel
 
     @Inject
-    lateinit var adapter: HeadLineAdapter
+    lateinit var adapter: HeadLineAdaperWithoutPaging3
 var isInternetPresent=false
 
 
@@ -136,7 +137,7 @@ private fun setupObserver() {
     }
 
     private fun renderList(articleList: List<Article>) {
-     //   adapter.updateData(articleList)
+        adapter.updateData(articleList)
         adapter.notifyDataSetChanged()
     }
 

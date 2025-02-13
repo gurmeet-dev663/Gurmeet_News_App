@@ -94,20 +94,20 @@ class TopHeadlineRepository @Inject constructor(private val networkService: Netw
         }
     }
 
-    fun getSourceDetails(id: String): Flow<List<Article>> {
+/*    fun getSourceDetails(id: String): Flow<List<Article>> {
         return flow {
             emit(networkService.getTopHeadlinesDetails(id, AppConstant.API_KEY))
         }.map {
             it.articles
         }
-    }
+    }*/
 
-    fun getTeslaArticles(): Flow<List<Article>> {
+ /*   fun getTeslaArticles(): Flow<List<Article>> {
         return flow {
             emit(networkService.getTeslaArticles(AppConstant.TESLA,AppConstant.PUBLISHEDAT, AppConstant.API_KEY))
         }.map {
             it.articles
         }
-    }
+    }*/
 
 }

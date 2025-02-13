@@ -13,6 +13,7 @@ import com.gurmeet.alllanguagenewsapp.ui.mainactivity.countries.CountryAdapter
 import com.gurmeet.alllanguagenewsapp.ui.mainactivity.countries.CountryViewModel
 import com.gurmeet.alllanguagenewsapp.ui.mainactivity.fetchnews.FetchNewsAdapter
 import com.gurmeet.alllanguagenewsapp.ui.mainactivity.fetchnews.FetchNewsViewModel
+import com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines.HeadLineAdaperWithoutPaging3
 import com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines.HeadLineAdapter
 import com.gurmeet.alllanguagenewsapp.ui.mainactivity.headlines.HeadLineViewModel
 import com.gurmeet.alllanguagenewsapp.ui.mainactivity.newsources.NewsSourceAdapter
@@ -62,6 +63,8 @@ class ActivityModule(private val activity: AppCompatActivity)  {
 
     @Provides
     fun provideTopHeadlineAdapter() = HeadLineAdapter()
+    @Provides
+    fun provideTopHeadlineAdapter2() = HeadLineAdaperWithoutPaging3(ArrayList())
   @Provides
     fun provideTopSourceAdapter()=NewsSourceAdapter(ArrayList())
 

@@ -3,6 +3,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.gurmeet.alllanguagenewsapp.data.api.NetworkService
 import com.gurmeet.alllanguagenewsapp.data.model.headlines.HeadlineResponse
+import com.gurmeet.alllanguagenewsapp.utils.AppConstant
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -10,7 +11,7 @@ class DynamicPagingSource<T : Any>(
     private val apiService: NetworkService,
     private val screenType: String,
     private val country: String?,
-    additionalParam: String? = null
+   private val additionalParam: String? = null
 ) : PagingSource<Int, T>() {
 
     companion object {
@@ -44,6 +45,25 @@ class DynamicPagingSource<T : Any>(
 
 
                 }
+                "NEWS_DETAIL" -> {
+                    val response = apiService.getTopHeadlinesDetails(additionalParam!!,AppConstant.API_KEY, page, PAGE_SIZE)
+
+                    Log.e("dsfsd", page.toString()+","+PAGE_SIZE.toString())
+                    response.articles as List<T>  // Access headlines inside the response
+
+
+                }
+                "TESLA" -> {
+                    val response = apiService.getTeslaArticles(AppConstant.TESLA,AppConstant.PUBLISHEDAT, AppConstant.API_KEY, page, PAGE_SIZE)
+
+                    Log.e("dsfsd", page.toString()+","+PAGE_SIZE.toString())
+                    response.articles as List<T>  // Access headlines inside the response
+
+
+                }
+
+
+
                 else -> throw IllegalArgumentException("Invalid Screen Type: $screenType")
             }
 

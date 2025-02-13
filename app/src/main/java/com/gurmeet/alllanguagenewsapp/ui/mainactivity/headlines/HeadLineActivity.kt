@@ -67,9 +67,11 @@ injectDependencies()
         val id = intent.getStringExtra(id)
         if (id != null && id.isNotEmpty()) {
             if (id.equals("1")) {
-                newsListViewModel.fetchTeslaArticles()
+                //newsListViewModel.fetchTeslaArticles()
+                newsListViewModel.fetchPagedData("TESLA");
             } else {
-                newsListViewModel.fetchNewsDetail(id)
+               // newsListViewModel.fetchNewsDetail(id)
+                newsListViewModel.fetchPagedData("NEWS_DETAIL","",id)
             }
         }
         else {

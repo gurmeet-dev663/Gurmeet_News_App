@@ -53,7 +53,7 @@ class HeadLineViewModel (private val topHeadlineRepository: TopHeadlineRepositor
 
 
 
-     fun createNewsFlow() {
+    fun createNewsFlow() {
         viewModelScope.launch {
             query.debounce(DEBOUNCE_TIMEOUT)
                 .filter {
@@ -79,22 +79,22 @@ class HeadLineViewModel (private val topHeadlineRepository: TopHeadlineRepositor
                     _uiState.value = UiState.Success(it)
                 }}}
 
-   /* public fun fetchNews() {
-        viewModelScope.launch {
-            topHeadlineRepository.getTopHeadlines(COUNTRY)
-                .cachedIn(viewModelScope) // Cache data in viewModelScope
-                .onStart { _uiState2.value = UiState.Loading } // Show loading state
-                .catch { e -> _uiState2.value = UiState.Error(e.message ?: "Unknown error") } // Handle errors
-                .collect { pagingData ->
-                    _uiState2.value = UiState.Success(pagingData) // Show success with data
-                }
-        }
-    }*/
+    /* public fun fetchNews() {
+         viewModelScope.launch {
+             topHeadlineRepository.getTopHeadlines(COUNTRY)
+                 .cachedIn(viewModelScope) // Cache data in viewModelScope
+                 .onStart { _uiState2.value = UiState.Loading } // Show loading state
+                 .catch { e -> _uiState2.value = UiState.Error(e.message ?: "Unknown error") } // Handle errors
+                 .collect { pagingData ->
+                     _uiState2.value = UiState.Success(pagingData) // Show success with data
+                 }
+         }
+     }*/
 
 
     fun fetchPagedData(
-        screenType: String,
-        country: String?,
+        screenType: String="HEADLINES",
+        country: String="country",
         additionalParam: String? = null
     ) {
         viewModelScope.launch {
@@ -108,15 +108,8 @@ class HeadLineViewModel (private val topHeadlineRepository: TopHeadlineRepositor
         }
     }
 
-
-
-
-
-
-
-
-
-     fun fetchNewsDetail( id:String) {
+/*
+    fun fetchNewsDetail( id:String) {
         viewModelScope.launch {
             topHeadlineRepository.getSourceDetails(id)
                 .catch { e ->
@@ -125,8 +118,8 @@ class HeadLineViewModel (private val topHeadlineRepository: TopHeadlineRepositor
                     _uiState.value = UiState.Success(it)
                 }
         }
-    }
-    fun fetchTeslaArticles() {
+    }*/
+/*    fun fetchTeslaArticles() {
         viewModelScope.launch {
             topHeadlineRepository.getTeslaArticles()
                 .catch { e ->
@@ -135,7 +128,7 @@ class HeadLineViewModel (private val topHeadlineRepository: TopHeadlineRepositor
                     _uiState.value = UiState.Success(it)
                 }
         }
-    }
+    }*/
 
 
 }
